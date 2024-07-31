@@ -20,8 +20,9 @@ Generative AI creates new things, like pictures or stories, by learning from exa
 Applied AI is using AI to solve real-world problems or make our lives easier.
 * Uses: Helping with tasks in everyday life, like making recommendations or improving safety.
 *   Example: A smart speaker that plays music you like or a robot vacuum that cleans your room by itself.
-## NOte:
-In summary, AI is the overarching field, ML is a subset of AI that involves learning from data, DL is a subset of ML focusing on deep neural networks, Generative AI deals with creating new content, and Applied AI is about utilizing AI technologies in practical scenarios.
-
+ # OR
 !['definations.jpeg'](./definations.jpeg)
 !['diagram.jpeg'](./diagram.jpeg)
+
+## Note:
+In summary, AI is the overarching field, ML is a subset of AI that involves learning from data, DL is a subset of ML focusing on deep neural networks, Generative AI deals with creating new content, and Applied AI is about utilizing AI technologies in practical scenarios.
