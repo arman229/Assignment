@@ -1,0 +1,13 @@
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: assignment3
+    volumes:
+        - .:/code   
+
+networks:
+  default:
+    driver: bridge
