@@ -9,3 +9,9 @@ Zapier is a tool that connects different apps and services to automate tasks.
 - **Reduces Manual Work**: Zapier takes care of tasks that you would otherwise need to do manually, freeing up your time for other activities.
 
 By using Zapier, you can streamline your workflows and increase productivity with minimal effort.
+
+
+some features of Zapier
+reduce errors
+take less time to sovle a problem
+
