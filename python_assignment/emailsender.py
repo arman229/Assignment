@@ -25,3 +25,4 @@ body = "This is a test email sent from a Python script."
 
 send_email(sender_email, sender_password, receiver_email, subject, body)
 
+

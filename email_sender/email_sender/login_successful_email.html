@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification</title>
+    <title>Successful Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,14 +39,14 @@
             font-size: 16px;
             margin-bottom: 20px;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
+        .content .details {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #555555;
+        }
+        .content .important {
+            font-weight: bold;
+            color: #4CAF50;
         }
         .footer {
             text-align: center;
@@ -60,14 +60,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Email Verification</h2>
+            <h2>Login Successful</h2>
         </div>
         <div class="content">
-            <p>Thank you for signing up! Please click the button below to verify your email address:</p>
-            <p style="text-align: center;">
-                <a href="{{ link }}" class="button">Verify Email</a>
-            </p>
-            <p>If you did not sign up for this account, please ignore this email.</p>
+            <p>Hello {{ username }},</p>
+            <p>Your account was successfully logged in on {{ login_time }}.</p>
+            <p>If this was you, you don't need to do anything. If you didn't log in or suspect any suspicious activity, please contact us immediately or change your password.</p>
         </div>
         <div class="footer">
             <p>&copy; {{ year }} Arman SuperMart. All rights reserved.</p>

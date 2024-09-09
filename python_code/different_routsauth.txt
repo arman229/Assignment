@@ -1,0 +1,81 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from jose import JWTError, jwt
+from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel
+from app.settings import SECRET_KEY_TOKEN, ALGORITHM
+
+router = APIRouter()
+
+# OAuth2 scheme for extracting token from the header
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="signin")
+
+
+class TokenData(BaseModel):
+    email: str
+    role: str
+
+
+# Function to verify JWT token for any authenticated user
+def verify_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY_TOKEN, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        role: str = payload.get("role")
+        if email is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
+            )
+        return TokenData(email=email, role=role)
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+        )
+
+
+# Function to verify JWT token for admin user
+def verify_token_for_admin(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY_TOKEN, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        role: str = payload.get("role")
+        if email is None or role != "admin":  # Check for admin role
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required"
+            )
+        return TokenData(email=email, role=role)
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+        )
+
+
+# Dependency for authenticated user
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    return verify_token(token)
+
+
+# Dependency for admin user
+def get_current_admin_user(token: str = Depends(oauth2_scheme)):
+    return verify_token_for_admin(token)
+
+
+# Route accessible by any authenticated user
+@router.get("/products")
+async def list_products(current_user: TokenData = Depends(get_current_user)):
+    return {
+        "products": ["Product 1", "Product 2", "Product 3"],
+        "user": current_user.email,
+    }
+
+
+# Route accessible by admin users only
+@router.get("/adminproducts")
+async def list_admin_products(
+    current_admin: TokenData = Depends(get_current_admin_user),
+):
+    return {
+        "admin_products": ["Admin Product 1", "Admin Product 2"],
+        "admin": current_admin.email,
+    }
